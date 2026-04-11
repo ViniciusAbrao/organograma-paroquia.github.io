@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Organograma Paroquial</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #d1d5db;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+      --blue: #4da3f5;
+      --orange: #f26a3d;
+      --yellow: #f4af0a;
+      --graybox: #bdbdbd;
+      --connector: #9ca3af;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+      border: 1px solid #dbeafe;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .control {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .control label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .control input,
+    .control select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid #e5e7eb;
+      background: #fff;
+    }
+
+    .panel-header h2 {
+      margin: 0 0 4px;
+      font-size: 20px;
+    }
+
+    .panel-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .counter {
+      padding: 10px 14px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    .organograma {
+      padding: 24px;
+      overflow-x: auto;
+      overflow-y: auto;
+      min-height: 560px;
+      background-image: radial-gradient(#e5e7eb 0.7px, transparent 0.7px);
+      background-size: 14px 14px;
+    }
+
+    .chart-wrap {
+      min-width: 980px;
+    }
+
+    .top-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .top-stack::after {
+      content: "";
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 18px;
+      background: var(--connector);
+    }
+
+    .chart-node {
+      border-radius: 999px;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      padding: 10px 18px;
+      min-width: 140px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      border: 2px solid transparent;
+      position: relative;
+      z-index: 3;
+    }
+
+    .chart-node.selected {
+      border-color: #111827;
+    }
+
+    .node-paroco {
+      background: var(--yellow);
+    }
+
+    .node-cpp {
+      background: var(--orange);
+    }
+
+    .rows-grid {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 12px 16px;
+      align-items: start;
+    }
+
+    .row-label {
+      align-self: start;
+      position: sticky;
+      left: 0;
+      z-index: 4;
+    }
+
+    .label-pill {
+      background: #111;
+      color: #fff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.1;
+      box-shadow: var(--shadow);
+    }
+
+    .row-content {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 12px;
+      overflow: visible;
+      padding-bottom: 8px;
+    }
+
+    .row-content-dimensoes {
+      position: relative;
+    }
+
+    .row-content-dimensoes::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 80px;
+      right: 80px;
+      height: 2px;
+      background: var(--connector);
+      z-index: 0;
+    }
+
+    .column {
+      min-width: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      padding-top: 18px;
+      z-index: 1;
+    }
+
+    .column::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 2px;
+      height: 18px;
+      background: var(--connector);
+      z-index: 1;
+    }
+
+    .dimension-node {
+      width: 120px;
+      background: var(--blue);
+      color: white;
+      padding: 8px 10px;
+      border-radius: 0;
+      text-align: center;
+      box-shadow: var(--shadow);
+      font-weight: 400;
+      cursor: pointer;
+      border: 2px solid transparent;
+      position: relative;
+      z-index: 2;
+    }
+
+    .dimension-node.selected,
+    .entity-node.selected {
+      border-color: #111827;
+    }
+
+    .entity-node {
+      width: 120px;
+      background: var(--graybox);
+      color: #111827;
+      padding: 8px 10px;
+      border-radius: 6px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      border: 2px solid transparent;
+      position: relative;
+      z-index: 2;
+      font-size: 14px;
+      white-space: pre-line;
+    }
+
+    .entity-node::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 10px;
+      background: var(--connector);
+      z-index: 1;
+    }
+
+    .details {
+      padding: 20px;
+      display: grid;
+      gap: 14px;
+      min-height: 500px;
+    }
+
+    .detail-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .detail-card h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+
+    .detail-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+      font-size: 13px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .funcao-block {
+      border-top: 1px dashed #e5e7eb;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    .funcao-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+      text-transform: capitalize;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .loading {
+      padding: 30px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 14px;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
+      .organograma {
+        padding: 14px;
+      }
+
+      .panel-header {
+        padding: 16px;
+      }
+
+      .details {
+        min-height: auto;
+      }
+
+      .rows-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .row-label {
+        position: static;
+      }
+
+      .chart-wrap {
+        min-width: 760px;
+      }
+
+      .row-content-dimensoes::before {
+        left: 60px;
+        right: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <h1>Organograma Paroquial</h1>
+      <p>
+        Visão híbrida em formato de organograma horizontal. O HTML lê um arquivo JSON externo,
+        mantém os filtros e destaca os detalhes do item selecionado.
+      </p>
+
+      <div class="controls">
+        <div class="control">
+          <label for="searchInput">Buscar por nome</label>
+          <input id="searchInput" type="text" placeholder="Ex.: MECE, Liturgia, Selma, Pastoral Familiar" />
+        </div>
+
+        <div class="control">
+          <label for="dimensionFilter">Filtrar por dimensão</label>
+          <select id="dimensionFilter">
+            <option value="todas">Todas as dimensões</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label for="typeFilter">Filtrar por tipo</label>
+          <select id="typeFilter">
+            <option value="todos">Todos</option>
+            <option value="pastoral">Pastoral</option>
+            <option value="projeto">Projeto</option>
+            <option value="paroquial">Paroquial</option>
+            <option value="conselho">Conselho</option>
+            <option value="comunidade">Comunidade</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Estrutura</h2>
+          <p>Leitura do arquivo externo <code>dados.json</code> com apresentação em colunas por dimensão.</p>
+          <div class="counter" id="counter"></div>
+        </div>
+
+        <div class="organograma" id="organograma">
+          <div class="loading">Carregando dados...</div>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <div class="panel-header">
+          <h2>Detalhes</h2>
+          <p>Clique em uma dimensão, pastoral ou projeto para ver mais informações.</p>
+        </div>
+        <div class="details" id="details"></div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      dimension: 'todas',
+      type: 'todos',
+      search: '',
+      selected: null,
+      selectedKind: null,
+      data: null
+    };
+
+    const organogramaEl = document.getElementById('organograma');
+    const detailsEl = document.getElementById('details');
+    const counterEl = document.getElementById('counter');
+    const searchInputEl = document.getElementById('searchInput');
+    const dimensionFilterEl = document.getElementById('dimensionFilter');
+    const typeFilterEl = document.getElementById('typeFilter');
+
+    function normalize(str) {
+      return (str || '')
+        .toString()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+    }
+
+    function formatLabel(key) {
+      return (key || '')
+        .replace(/_/g, ' ')
+        .replace(/\bns\b/i, 'N. S.')
+        .replace(/\bcpp\b/i, 'CPP')
+        .replace(/\bpascom\b/i, 'PasCom')
+        .replace(/\bmece\b/i, 'MECE')
+        .replace(/\b([a-z])/g, c => c.toUpperCase());
+    }
+
+    function joinNames(arr) {
+      return (arr && arr.length) ? arr.join(', ') : 'Não informado';
+    }
+
+    function getDimensaoById(id) {
+      return state.data?.dimensoes?.find(d => d.id === id) || null;
+    }
+
+    function getAllSearchableText(item) {
+      const dimNames = (item.dimensoes || []).map(id => getDimensaoById(id)?.nome || id);
+      const values = [item.nome, item.id || '', ...dimNames, ...(item.coordenacao || []), ...(item.membros || [])];
+
+      Object.entries(item.funcoes || {}).forEach(([k, v]) => {
+        values.push(k, ...(v || []));
+      });
+
+      (item.subgrupos || []).forEach(s => {
+        values.push(s.nome, s.id || '', ...(s.coordenacao || []), ...(s.membros || []));
+        Object.entries(s.funcoes || {}).forEach(([k, v]) => values.push(k, ...(v || [])));
+      });
+
+      return normalize(values.join(' '));
+    }
+
+    function getFilteredItems() {
+      const entidades = state.data?.entidades || [];
+
+      return entidades.filter(item => {
+        const matchDimension =
+          state.dimension === 'todas' || (item.dimensoes || []).includes(state.dimension);
+
+        const matchType =
+          state.type === 'todos' || item.tipo === state.type;
+
+        const matchSearch =
+          !state.search || getAllSearchableText(item).includes(normalize(state.search));
+
+        return matchDimension && matchType && matchSearch;
+      });
+    }
+
+    function setSelected(kind, id) {
+      state.selectedKind = kind;
+      state.selected = id;
+      render();
+    }
+
+    function buildDimensionColumns() {
+      const filteredItems = getFilteredItems();
+      const dimensoes = [...(state.data?.dimensoes || [])].sort((a, b) => a.ordem - b.ordem);
+
+      return dimensoes
+        .filter(d => state.dimension === 'todas' || d.id === state.dimension)
+        .map(d => ({
+          ...d,
+          items: filteredItems.filter(item => (item.dimensoes || []).includes(d.id))
+        }))
+        .filter(d => d.items.length || !state.search || normalize(d.nome).includes(normalize(state.search)));
+    }
+
+    function renderOrganograma() {
+      if (!state.data) {
+        organogramaEl.innerHTML = '<div class="loading">Carregando dados...</div>';
+        return;
+      }
+
+      organogramaEl.innerHTML = '';
+      const columns = buildDimensionColumns();
+      const filteredItems = getFilteredItems();
+      counterEl.textContent = `${filteredItems.length} item(ns) exibido(s)`;
+
+      const wrap = document.createElement('div');
+      wrap.className = 'chart-wrap';
+
+      const top = document.createElement('div');
+      top.className = 'top-stack';
+
+      const parocoNode = document.createElement('div');
+      parocoNode.className = `chart-node node-paroco ${state.selectedKind === 'paroco' ? 'selected' : ''}`;
+      parocoNode.textContent = state.data.paroco?.nome || 'Pároco';
+      parocoNode.onclick = () => setSelected('paroco', state.data.paroco?.id || 'paroco');
+      top.appendChild(parocoNode);
+
+      const cppNode = document.createElement('div');
+      cppNode.className = `chart-node node-cpp ${state.selectedKind === 'cpp' ? 'selected' : ''}`;
+      cppNode.textContent = state.data.cpp?.nome || 'CPP';
+      cppNode.onclick = () => setSelected('cpp', state.data.cpp?.id || 'cpp');
+      top.appendChild(cppNode);
+
+      wrap.appendChild(top);
+
+      const grid = document.createElement('div');
+      grid.className = 'rows-grid';
+
+      const rowLabel1 = document.createElement('div');
+      rowLabel1.className = 'row-label';
+      rowLabel1.innerHTML = '<div class="label-pill">Dimensões</div>';
+      grid.appendChild(rowLabel1);
+
+      const rowContent1 = document.createElement('div');
+      rowContent1.className = 'row-content row-content-dimensoes';
+
+      columns.forEach(col => {
+        const column = document.createElement('div');
+        column.className = 'column';
+
+        const dimNode = document.createElement('div');
+        dimNode.className = `dimension-node ${state.selectedKind === 'dimensao' && state.selected === col.id ? 'selected' : ''}`;
+        dimNode.textContent = `${col.nome} (${col.ordem})`;
+        dimNode.onclick = () => setSelected('dimensao', col.id);
+
+        column.appendChild(dimNode);
+        rowContent1.appendChild(column);
+      });
+
+      grid.appendChild(rowContent1);
+
+      const rowLabel2 = document.createElement('div');
+      rowLabel2.className = 'row-label';
+      rowLabel2.innerHTML = '<div class="label-pill">Pastorais/<br>Projetos</div>';
+      grid.appendChild(rowLabel2);
+
+      const rowContent2 = document.createElement('div');
+      rowContent2.className = 'row-content';
+
+      columns.forEach(col => {
+        const column = document.createElement('div');
+        column.className = 'column';
+
+        col.items.forEach(item => {
+          const itemNode = document.createElement('div');
+          itemNode.className = `entity-node ${state.selectedKind === 'item' && state.selected === item.id ? 'selected' : ''}`;
+
+          const idx = col.items.findIndex(x => x.id === item.id) + 1;
+          const label = `${item.nome} (${col.ordem}.${idx})`;
+
+          itemNode.textContent = label;
+          itemNode.onclick = () => setSelected('item', item.id);
+
+          column.appendChild(itemNode);
+        });
+
+        rowContent2.appendChild(column);
+      });
+
+      grid.appendChild(rowContent2);
+      wrap.appendChild(grid);
+      organogramaEl.appendChild(wrap);
+    }
+
+    function addPillList(parent, title, values) {
+      const card = document.createElement('div');
+      card.className = 'detail-card';
+
+      const h3 = document.createElement('h3');
+      h3.textContent = title;
+      card.appendChild(h3);
+
+      if (!values || !values.length) {
+        const p = document.createElement('p');
+        p.className = 'empty';
+        p.textContent = 'Não informado.';
+        card.appendChild(p);
+      } else {
+        const list = document.createElement('div');
+        list.className = 'pill-list';
+
+        values.forEach(v => {
+          const pill = document.createElement('span');
+          pill.className = 'pill';
+          pill.textContent = v;
+          list.appendChild(pill);
+        });
+
+        card.appendChild(list);
+      }
+
+      parent.appendChild(card);
+    }
+
+    function renderParocoDetails() {
+      detailsEl.innerHTML = '';
+
+      const card = document.createElement('div');
+      card.className = 'detail-card';
+      card.innerHTML = `<h3>${state.data.paroco.nome}</h3><p>Ponto mais alto do organograma pastoral.</p>`;
+
+      detailsEl.appendChild(card);
+    }
+
+    function renderCPPDetails() {
+      detailsEl.innerHTML = '';
+
+      const card = document.createElement('div');
+      card.className = 'detail-card';
+      card.innerHTML = `<h3>${state.data.cpp.nome}</h3><p>Instância de coordenação e integração pastoral abaixo do pároco.</p>`;
+      detailsEl.appendChild(card);
+
+      addPillList(detailsEl, 'Coordenação', state.data.cpp.coordenacao || []);
+      addPillList(detailsEl, 'Secretaria', state.data.cpp.funcoes?.secretaria || []);
+      addPillList(detailsEl, 'Comunicação', state.data.cpp.funcoes?.comunicacao || []);
+    }
+
+    function renderDimensaoDetails(id) {
+      const dimensao = getDimensaoById(id);
+      const items = (state.data.entidades || []).filter(item => (item.dimensoes || []).includes(id));
+
+      detailsEl.innerHTML = '';
+
+      const card = document.createElement('div');
+      card.className = 'detail-card';
+      card.innerHTML = `<h3>Dimensão ${dimensao?.nome || id}</h3><p>Esta dimensão possui ${items.length} item(ns) associado(s).</p>`;
+      detailsEl.appendChild(card);
+
+      addPillList(detailsEl, 'Coordenação da dimensão', dimensao?.coordenacao || []);
+      addPillList(detailsEl, 'Entidades vinculadas', items.map(i => i.nome));
+    }
+
+    function renderItemDetails(id) {
+      const item = (state.data.entidades || []).find(e => e.id === id);
+      if (!item) return renderDefaultDetails();
+
+      detailsEl.innerHTML = '';
+
+      const header = document.createElement('div');
+      header.className = 'detail-card';
+
+      const dimNames = (item.dimensoes || []).map(dimId => getDimensaoById(dimId)?.nome || dimId);
+      header.innerHTML = `<h3>${item.nome}</h3><p>Tipo: ${item.tipo}. Dimensão(ões): ${dimNames.join(', ') || 'Não informado'}.</p>`;
+      detailsEl.appendChild(header);
+
+      addPillList(detailsEl, 'Coordenação', item.coordenacao || []);
+
+      const funcoesEntries = Object.entries(item.funcoes || {});
+      const funcoesCard = document.createElement('div');
+      funcoesCard.className = 'detail-card';
+
+      const h3 = document.createElement('h3');
+      h3.textContent = 'Funções internas';
+      funcoesCard.appendChild(h3);
+
+      if (!funcoesEntries.length) {
+        const p = document.createElement('p');
+        p.className = 'empty';
+        p.textContent = 'Nenhuma função interna cadastrada.';
+        funcoesCard.appendChild(p);
+      } else {
+        funcoesEntries.forEach(([k, v]) => {
+          const block = document.createElement('div');
+          block.className = 'funcao-block';
+
+          const title = document.createElement('div');
+          title.className = 'funcao-title';
+          title.textContent = formatLabel(k);
+          block.appendChild(title);
+
+          if (v && v.length) {
+            const list = document.createElement('div');
+            list.className = 'pill-list';
+
+            v.forEach(name => {
+              const pill = document.createElement('span');
+              pill.className = 'pill';
+              pill.textContent = name;
+              list.appendChild(pill);
+            });
+
+            block.appendChild(list);
+          } else {
+            const p = document.createElement('p');
+            p.className = 'empty';
+            p.textContent = 'Não informado.';
+            block.appendChild(p);
+          }
+
+          funcoesCard.appendChild(block);
+        });
+      }
+
+      detailsEl.appendChild(funcoesCard);
+      addPillList(detailsEl, 'Membros cadastrados', item.membros || []);
+
+      if (item.subgrupos && item.subgrupos.length) {
+        const subCard = document.createElement('div');
+        subCard.className = 'detail-card';
+
+        const subTitle = document.createElement('h3');
+        subTitle.textContent = 'Subgrupos';
+        subCard.appendChild(subTitle);
+
+        item.subgrupos.forEach(sub => {
+          const block = document.createElement('div');
+          block.className = 'funcao-block';
+          block.innerHTML = `<div class="funcao-title">${sub.nome}</div>`;
+
+          const coord = document.createElement('div');
+          coord.className = 'pill-list';
+
+          (sub.coordenacao || []).forEach(nome => {
+            const pill = document.createElement('span');
+            pill.className = 'pill';
+            pill.textContent = `Coord.: ${nome}`;
+            coord.appendChild(pill);
+          });
+
+          block.appendChild(coord);
+
+          Object.entries(sub.funcoes || {}).forEach(([k, v]) => {
+            const smallTitle = document.createElement('div');
+            smallTitle.className = 'funcao-title';
+            smallTitle.style.marginTop = '8px';
+            smallTitle.textContent = formatLabel(k);
+            block.appendChild(smallTitle);
+
+            if (v && v.length) {
+              const list = document.createElement('div');
+              list.className = 'pill-list';
+
+              v.forEach(nome => {
+                const pill = document.createElement('span');
+                pill.className = 'pill';
+                pill.textContent = nome;
+                list.appendChild(pill);
+              });
+
+              block.appendChild(list);
+            } else {
+              const p = document.createElement('p');
+              p.className = 'empty';
+              p.textContent = 'Não informado.';
+              block.appendChild(p);
+            }
+          });
+
+          subCard.appendChild(block);
+        });
+
+        detailsEl.appendChild(subCard);
+      }
+    }
+
+    function renderDefaultDetails() {
+      detailsEl.innerHTML = '';
+
+      const card = document.createElement('div');
+      card.className = 'detail-card';
+      card.innerHTML = `<h3>Como usar</h3><p>Selecione um item no organograma. O diagrama mostra apenas os nomes e códigos. Os detalhes completos ficam concentrados na barra lateral.</p>`;
+
+      detailsEl.appendChild(card);
+    }
+
+    function renderDetails() {
+      if (!state.selectedKind || !state.selected) return renderDefaultDetails();
+      if (state.selectedKind === 'paroco') return renderParocoDetails();
+      if (state.selectedKind === 'cpp') return renderCPPDetails();
+      if (state.selectedKind === 'dimensao') return renderDimensaoDetails(state.selected);
+      if (state.selectedKind === 'item') return renderItemDetails(state.selected);
+      renderDefaultDetails();
+    }
+
+    function populateDimensionFilter() {
+      dimensionFilterEl.innerHTML = '<option value="todas">Todas as dimensões</option>';
+
+      (state.data?.dimensoes || [])
+        .sort((a, b) => a.ordem - b.ordem)
+        .forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d.id;
+          opt.textContent = d.nome;
+          dimensionFilterEl.appendChild(opt);
+        });
+    }
+
+    function attachEvents() {
+      searchInputEl.addEventListener('input', e => {
+        state.search = e.target.value;
+        render();
+      });
+
+      dimensionFilterEl.addEventListener('change', e => {
+        state.dimension = e.target.value;
+        render();
+      });
+
+      typeFilterEl.addEventListener('change', e => {
+        state.type = e.target.value;
+        render();
+      });
+    }
+
+    function keepSelectionValid() {
+      if (state.selectedKind === 'item') {
+        const items = getFilteredItems();
+        if (!items.some(i => i.id === state.selected)) {
+          state.selected = null;
+          state.selectedKind = null;
+        }
+      }
+
+      if (state.selectedKind === 'dimensao') {
+        if (state.dimension !== 'todas' && state.dimension !== state.selected) {
+          state.selected = null;
+          state.selectedKind = null;
+        }
+      }
+    }
+
+    function render() {
+      if (!state.data) return;
+      keepSelectionValid();
+      renderOrganograma();
+      renderDetails();
+    }
+
+    async function loadData() {
+      try {
+        const response = await fetch('./dados.json');
+        if (!response.ok) throw new Error(`Falha ao carregar JSON: ${response.status}`);
+        state.data = await response.json();
+        populateDimensionFilter();
+        render();
+      } catch (error) {
+        organogramaEl.innerHTML = `<div class="loading">Não foi possível carregar o arquivo JSON externo.<br>${error.message}</div>`;
+        detailsEl.innerHTML = `<div class="detail-card"><h3>Erro de carregamento</h3><p>Coloque o arquivo <strong>dados.json</strong> no mesmo diretório do HTML ou ajuste o caminho do fetch.</p></div>`;
+      }
+    }
+
+    attachEvents();
+    loadData();
+  </script>
+</body>
+</html>
