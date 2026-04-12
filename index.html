@@ -351,6 +351,10 @@
       border: 1px solid #e5e7eb;
     }
 
+    button.pill {
+      font-family: inherit;
+    }
+
     .funcao-block {
       border-top: 1px dashed #e5e7eb;
       padding-top: 10px;
@@ -433,10 +437,9 @@
 <body>
   <div class="page">
     <section class="hero">
-      <h1>Organograma Paroquial</h1>
+      <h1>Paróquia da Ressurreição</h1>
       <p>
-        Visão híbrida em formato de organograma horizontal. O HTML lê um arquivo JSON externo,
-        mantém os filtros e destaca os detalhes do item selecionado.
+        Organograma Paroquial
       </p>
 
       <div class="controls">
@@ -470,7 +473,7 @@
       <section class="panel">
         <div class="panel-header">
           <h2>Estrutura</h2>
-          <p>Leitura do arquivo externo <code>dados.json</code> com apresentação em colunas por dimensão.</p>
+          <p>Divisão pastoral por dimensão.</p>
           <div class="counter" id="counter"></div>
         </div>
 
@@ -482,7 +485,7 @@
       <aside class="panel">
         <div class="panel-header">
           <h2>Detalhes</h2>
-          <p>Clique em uma dimensão, pastoral ou projeto para ver mais informações.</p>
+          <p>Clique em uma dimensão, pastoral, projeto ou pessoa para ver mais informações.</p>
         </div>
         <div class="details" id="details"></div>
       </aside>
@@ -496,7 +499,10 @@
       search: '',
       selected: null,
       selectedKind: null,
-      data: null
+      selectedPersonId: null,
+      data: null,
+      pessoas: [],
+      pessoasPorId: {}
     };
 
     const organogramaEl = document.getElementById('organograma');
@@ -517,6 +523,7 @@
 
     function formatLabel(key) {
       return (key || '')
+        .replace(/_ids?$/i, '')
         .replace(/_/g, ' ')
         .replace(/\bns\b/i, 'N. S.')
         .replace(/\bcpp\b/i, 'CPP')
@@ -525,25 +532,74 @@
         .replace(/\b([a-z])/g, c => c.toUpperCase());
     }
 
-    function joinNames(arr) {
-      return (arr && arr.length) ? arr.join(', ') : 'Não informado';
-    }
-
     function getDimensaoById(id) {
       return state.data?.dimensoes?.find(d => d.id === id) || null;
     }
 
+    function getPessoaById(id) {
+      return state.pessoasPorId?.[id] || null;
+    }
+
+    function getPessoaNome(id) {
+      return getPessoaById(id)?.nome || id || 'Não informado';
+    }
+
+    function idsToNames(ids) {
+      return (ids || []).map(getPessoaNome);
+    }
+
     function getAllSearchableText(item) {
       const dimNames = (item.dimensoes || []).map(id => getDimensaoById(id)?.nome || id);
-      const values = [item.nome, item.id || '', ...dimNames, ...(item.coordenacao || []), ...(item.membros || [])];
+      const values = [item.nome, item.id || '', ...dimNames];
+
+      const personIds = [
+        ...(item.coordenacao_ids || []),
+        ...(item.membros_ids || [])
+      ];
+
+      personIds.forEach(id => {
+        const pessoa = getPessoaById(id);
+        if (pessoa) {
+          values.push(pessoa.nome, pessoa.id);
+          if (pessoa.telefone) values.push(pessoa.telefone);
+        } else {
+          values.push(id);
+        }
+      });
 
       Object.entries(item.funcoes || {}).forEach(([k, v]) => {
-        values.push(k, ...(v || []));
+        values.push(k);
+        (v || []).forEach(id => {
+          const pessoa = getPessoaById(id);
+          if (pessoa) {
+            values.push(pessoa.nome, pessoa.id);
+            if (pessoa.telefone) values.push(pessoa.telefone);
+          } else {
+            values.push(id);
+          }
+        });
       });
 
       (item.subgrupos || []).forEach(s => {
-        values.push(s.nome, s.id || '', ...(s.coordenacao || []), ...(s.membros || []));
-        Object.entries(s.funcoes || {}).forEach(([k, v]) => values.push(k, ...(v || [])));
+        values.push(s.nome, s.id || '');
+
+        (s.coordenacao_ids || []).forEach(id => {
+          const pessoa = getPessoaById(id);
+          values.push(pessoa?.nome || id);
+        });
+
+        (s.membros_ids || []).forEach(id => {
+          const pessoa = getPessoaById(id);
+          values.push(pessoa?.nome || id);
+        });
+
+        Object.entries(s.funcoes || {}).forEach(([k, v]) => {
+          values.push(k);
+          (v || []).forEach(id => {
+            const pessoa = getPessoaById(id);
+            values.push(pessoa?.nome || id);
+          });
+        });
       });
 
       return normalize(values.join(' '));
@@ -604,7 +660,7 @@
 
       const parocoNode = document.createElement('div');
       parocoNode.className = `chart-node node-paroco ${state.selectedKind === 'paroco' ? 'selected' : ''}`;
-      parocoNode.textContent = state.data.paroco?.nome || 'Pároco';
+      parocoNode.textContent = getPessoaNome(state.data.paroco?.paroco_id) || 'Pároco';
       parocoNode.onclick = () => setSelected('paroco', state.data.paroco?.id || 'paroco');
       top.appendChild(parocoNode);
 
@@ -705,14 +761,108 @@
       parent.appendChild(card);
     }
 
-    function renderParocoDetails() {
-      detailsEl.innerHTML = '';
+    function createPersonPill(id, prefix = '') {
+      const pessoa = getPessoaById(id);
+
+      const pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = 'pill';
+      pill.style.cursor = 'pointer';
+      pill.textContent = `${prefix}${pessoa?.nome || id}`;
+      pill.onclick = () => {
+        state.selectedPersonId = id;
+        renderDetails();
+      };
+
+      return pill;
+    }
+
+    function addPersonPillList(parent, title, ids) {
+      const card = document.createElement('div');
+      card.className = 'detail-card';
+
+      const h3 = document.createElement('h3');
+      h3.textContent = title;
+      card.appendChild(h3);
+
+      if (!ids || !ids.length) {
+        const p = document.createElement('p');
+        p.className = 'empty';
+        p.textContent = 'Não informado.';
+        card.appendChild(p);
+      } else {
+        const list = document.createElement('div');
+        list.className = 'pill-list';
+
+        ids.forEach(id => {
+          list.appendChild(createPersonPill(id));
+        });
+
+        card.appendChild(list);
+      }
+
+      parent.appendChild(card);
+    }
+
+    function renderPersonDetails(personId) {
+      if (!personId) return;
+
+      const pessoa = getPessoaById(personId);
+      if (!pessoa) return;
 
       const card = document.createElement('div');
       card.className = 'detail-card';
-      card.innerHTML = `<h3>${state.data.paroco.nome}</h3><p>Ponto mais alto do organograma pastoral.</p>`;
+
+      const h3 = document.createElement('h3');
+      h3.textContent = 'Pessoa selecionada';
+      card.appendChild(h3);
+
+      const nome = document.createElement('p');
+      nome.innerHTML = `<strong>Nome:</strong> ${pessoa.nome}`;
+      card.appendChild(nome);
+
+      const telefone = document.createElement('p');
+      telefone.innerHTML = `<strong>Telefone:</strong> ${pessoa.telefone || 'Não informado'}`;
+      card.appendChild(telefone);
+
+      const conjuge = getPessoaById(pessoa.conjuge_id);
+      const conjugeLine = document.createElement('p');
+
+      if (conjuge) {
+        conjugeLine.innerHTML = '<strong>Cônjuge:</strong> ';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'pill';
+        btn.style.cursor = 'pointer';
+        btn.textContent = conjuge.nome;
+        btn.onclick = () => {
+          state.selectedPersonId = conjuge.id;
+          renderDetails();
+        };
+        conjugeLine.appendChild(btn);
+      } else {
+        conjugeLine.innerHTML = '<strong>Cônjuge:</strong> Não informado';
+      }
+
+      card.appendChild(conjugeLine);
+      detailsEl.appendChild(card);
+    }
+
+    function renderParocoDetails() {
+      detailsEl.innerHTML = '';
+
+      const pessoa = getPessoaById(state.data.paroco?.paroco_id);
+
+      const card = document.createElement('div');
+      card.className = 'detail-card';
+      card.innerHTML = `<h3>${pessoa?.nome || 'Pároco'}</h3><p>Pároco da Paróquia da Ressurreição.</p>`;
 
       detailsEl.appendChild(card);
+
+      if (pessoa) {
+        state.selectedPersonId = pessoa.id;
+        renderPersonDetails(state.selectedPersonId);
+      }
     }
 
     function renderCPPDetails() {
@@ -723,9 +873,13 @@
       card.innerHTML = `<h3>${state.data.cpp.nome}</h3><p>Instância de coordenação e integração pastoral abaixo do pároco.</p>`;
       detailsEl.appendChild(card);
 
-      addPillList(detailsEl, 'Coordenação', state.data.cpp.coordenacao || []);
-      addPillList(detailsEl, 'Secretaria', state.data.cpp.funcoes?.secretaria || []);
-      addPillList(detailsEl, 'Comunicação', state.data.cpp.funcoes?.comunicacao || []);
+      addPersonPillList(detailsEl, 'Coordenação', state.data.cpp.coordenacao_ids || []);
+      addPersonPillList(detailsEl, 'Secretaria', state.data.cpp.funcoes?.secretaria_ids || []);
+      addPersonPillList(detailsEl, 'Comunicação', state.data.cpp.funcoes?.comunicacao_ids || []);
+
+      if (state.selectedPersonId) {
+        renderPersonDetails(state.selectedPersonId);
+      }
     }
 
     function renderDimensaoDetails(id) {
@@ -739,8 +893,12 @@
       card.innerHTML = `<h3>Dimensão ${dimensao?.nome || id}</h3><p>Esta dimensão possui ${items.length} item(ns) associado(s).</p>`;
       detailsEl.appendChild(card);
 
-      addPillList(detailsEl, 'Coordenação da dimensão', dimensao?.coordenacao || []);
+      addPersonPillList(detailsEl, 'Coordenação da dimensão', dimensao?.coordenacao_ids || []);
       addPillList(detailsEl, 'Entidades vinculadas', items.map(i => i.nome));
+
+      if (state.selectedPersonId) {
+        renderPersonDetails(state.selectedPersonId);
+      }
     }
 
     function renderItemDetails(id) {
@@ -756,7 +914,7 @@
       header.innerHTML = `<h3>${item.nome}</h3><p>Tipo: ${item.tipo}. Dimensão(ões): ${dimNames.join(', ') || 'Não informado'}.</p>`;
       detailsEl.appendChild(header);
 
-      addPillList(detailsEl, 'Coordenação', item.coordenacao || []);
+      addPersonPillList(detailsEl, 'Coordenação', item.coordenacao_ids || []);
 
       const funcoesEntries = Object.entries(item.funcoes || {});
       const funcoesCard = document.createElement('div');
@@ -785,11 +943,8 @@
             const list = document.createElement('div');
             list.className = 'pill-list';
 
-            v.forEach(name => {
-              const pill = document.createElement('span');
-              pill.className = 'pill';
-              pill.textContent = name;
-              list.appendChild(pill);
+            v.forEach(id => {
+              list.appendChild(createPersonPill(id));
             });
 
             block.appendChild(list);
@@ -805,7 +960,7 @@
       }
 
       detailsEl.appendChild(funcoesCard);
-      addPillList(detailsEl, 'Membros cadastrados', item.membros || []);
+      addPersonPillList(detailsEl, 'Membros cadastrados', item.membros_ids || []);
 
       if (item.subgrupos && item.subgrupos.length) {
         const subCard = document.createElement('div');
@@ -823,11 +978,8 @@
           const coord = document.createElement('div');
           coord.className = 'pill-list';
 
-          (sub.coordenacao || []).forEach(nome => {
-            const pill = document.createElement('span');
-            pill.className = 'pill';
-            pill.textContent = `Coord.: ${nome}`;
-            coord.appendChild(pill);
+          (sub.coordenacao_ids || []).forEach(id => {
+            coord.appendChild(createPersonPill(id, 'Coord.: '));
           });
 
           block.appendChild(coord);
@@ -843,11 +995,8 @@
               const list = document.createElement('div');
               list.className = 'pill-list';
 
-              v.forEach(nome => {
-                const pill = document.createElement('span');
-                pill.className = 'pill';
-                pill.textContent = nome;
-                list.appendChild(pill);
+              v.forEach(id => {
+                list.appendChild(createPersonPill(id));
               });
 
               block.appendChild(list);
@@ -864,6 +1013,10 @@
 
         detailsEl.appendChild(subCard);
       }
+
+      if (state.selectedPersonId) {
+        renderPersonDetails(state.selectedPersonId);
+      }
     }
 
     function renderDefaultDetails() {
@@ -871,7 +1024,7 @@
 
       const card = document.createElement('div');
       card.className = 'detail-card';
-      card.innerHTML = `<h3>Como usar</h3><p>Selecione um item no organograma. O diagrama mostra apenas os nomes e códigos. Os detalhes completos ficam concentrados na barra lateral.</p>`;
+      card.innerHTML = `<h3>Como usar</h3><p>Selecione um item no organograma. Os detalhes completos ficam concentrados na barra lateral. Clique no nome de uma pessoa para abrir seus dados logo abaixo.</p>`;
 
       detailsEl.appendChild(card);
     }
@@ -930,6 +1083,10 @@
           state.selectedKind = null;
         }
       }
+
+      if (state.selectedPersonId && !getPessoaById(state.selectedPersonId)) {
+        state.selectedPersonId = null;
+      }
     }
 
     function render() {
@@ -941,14 +1098,27 @@
 
     async function loadData() {
       try {
-        const response = await fetch('./dados.json');
-        if (!response.ok) throw new Error(`Falha ao carregar JSON: ${response.status}`);
-        state.data = await response.json();
+        const [dadosResponse, pessoasResponse] = await Promise.all([
+          fetch('./dados.json'),
+          fetch('./pessoas.json')
+        ]);
+
+        if (!dadosResponse.ok) throw new Error(`Falha ao carregar dados.json: ${dadosResponse.status}`);
+        if (!pessoasResponse.ok) throw new Error(`Falha ao carregar pessoas.json: ${pessoasResponse.status}`);
+
+        state.data = await dadosResponse.json();
+
+        const pessoasData = await pessoasResponse.json();
+        state.pessoas = pessoasData.pessoas || [];
+        state.pessoasPorId = Object.fromEntries(
+          state.pessoas.map(p => [p.id, p])
+        );
+
         populateDimensionFilter();
         render();
       } catch (error) {
-        organogramaEl.innerHTML = `<div class="loading">Não foi possível carregar o arquivo JSON externo.<br>${error.message}</div>`;
-        detailsEl.innerHTML = `<div class="detail-card"><h3>Erro de carregamento</h3><p>Coloque o arquivo <strong>dados.json</strong> no mesmo diretório do HTML ou ajuste o caminho do fetch.</p></div>`;
+        organogramaEl.innerHTML = `<div class="loading">Não foi possível carregar os arquivos JSON externos.<br>${error.message}</div>`;
+        detailsEl.innerHTML = `<div class="detail-card"><h3>Erro de carregamento</h3><p>Coloque os arquivos <strong>dados.json</strong> e <strong>pessoas.json</strong> no mesmo diretório do HTML ou ajuste o caminho do fetch.</p></div>`;
       }
     }
 

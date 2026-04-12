@@ -5,27 +5,27 @@
   },
   "paroco": {
     "id": "paroco",
-    "nome": "Monsenhor Valmir"
+    "paroco_id": "monsenhor_valmir"
   },
   "cpp": {
     "id": "cpp",
     "nome": "CPP",
-    "coordenacao": ["Selma", "Fernanda", "Vinícius"],
+    "coordenacao_ids": ["selma", "fernanda", "vinicius"],
     "funcoes": {
-      "secretaria": ["Priscila"],
-      "comunicacao": ["Priscila"]
+      "secretaria_ids": ["priscila"],
+      "comunicacao_ids": ["priscila"]
     }
   },
   "dimensoes": [
-    { "id": "familia", "ordem": 1, "nome": "Família", "coordenacao": [] },
-    { "id": "juventude", "ordem": 2, "nome": "Juventude", "coordenacao": [] },
-    { "id": "missionaria", "ordem": 3, "nome": "Missionária", "coordenacao": [] },
-    { "id": "liturgica", "ordem": 4, "nome": "Litúrgica", "coordenacao": [] },
-    { "id": "administrativa", "ordem": 5, "nome": "Administrativa", "coordenacao": [] },
-    { "id": "social", "ordem": 6, "nome": "Social", "coordenacao": [] },
-    { "id": "religioso", "ordem": 7, "nome": "Religioso", "coordenacao": [] },
-    { "id": "promocoes_eventos", "ordem": 8, "nome": "Promoções e Eventos", "coordenacao": [] },
-    { "id": "comunicacao", "ordem": 9, "nome": "Comunicação", "coordenacao": [] }
+    { "id": "familia", "ordem": 1, "nome": "Família", "coordenacao_ids": [] },
+    { "id": "juventude", "ordem": 2, "nome": "Juventude", "coordenacao_ids": [] },
+    { "id": "missionaria", "ordem": 3, "nome": "Missionária", "coordenacao_ids": [] },
+    { "id": "liturgica", "ordem": 4, "nome": "Litúrgica", "coordenacao_ids": [] },
+    { "id": "administrativa", "ordem": 5, "nome": "Administrativa", "coordenacao_ids": [] },
+    { "id": "social", "ordem": 6, "nome": "Social", "coordenacao_ids": [] },
+    { "id": "religioso", "ordem": 7, "nome": "Religioso", "coordenacao_ids": [] },
+    { "id": "promocoes_eventos", "ordem": 8, "nome": "Promoções e Eventos", "coordenacao_ids": [] },
+    { "id": "comunicacao", "ordem": 9, "nome": "Comunicação", "coordenacao_ids": [] }
   ],
   "entidades": [
     {
@@ -33,13 +33,13 @@
       "nome": "MECE",
       "tipo": "pastoral",
       "dimensoes": ["religioso"],
-      "coordenacao": ["Leninha", "Fátima"],
+      "coordenacao_ids": ["leninha", "fatima"],
       "funcoes": {
-        "sec_adm": ["Renata"],
-        "sec_social": ["Cleonice", "Núbia"],
-        "tesouraria": ["Cleonice"]
+        "sec_adm_ids": ["renata"],
+        "sec_social_ids": ["cleonice", "nubia"],
+        "tesouraria_ids": ["cleonice"]
       },
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -47,9 +47,9 @@
       "nome": "Ministros da Casa de Acolhida",
       "tipo": "pastoral",
       "dimensoes": ["religioso"],
-      "coordenacao": ["Núbia", "Luiz Fernando"],
+      "coordenacao_ids": ["nubia", "luiz_fernando"],
       "funcoes": {},
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -57,14 +57,14 @@
       "nome": "Batismo",
       "tipo": "pastoral",
       "dimensoes": ["missionaria"],
-      "coordenacao": ["Letícia", "Gilmar"],
+      "coordenacao_ids": ["leticia", "gilmar"],
       "funcoes": {
-        "secretaria": ["Breno", "Calissa"],
-        "comunicacao": ["Breno", "Gilmar"],
-        "tesouraria": ["Cidinha", "Maria Célia"],
-        "almoxarifado": ["Letícia", "Maria Célia"]
+        "secretaria_ids": ["breno", "calissa"],
+        "comunicacao_ids": ["breno", "gilmar"],
+        "tesouraria_ids": ["cidinha", "maria_celia"],
+        "almoxarifado_ids": ["leticia", "maria_celia"]
       },
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -72,14 +72,14 @@
       "nome": "Liturgia",
       "tipo": "pastoral",
       "dimensoes": ["liturgica"],
-      "coordenacao": ["Raquel"],
+      "coordenacao_ids": ["raquel"],
       "funcoes": {
-        "secretaria": [],
-        "equipes_celebrativas": ["Fred", "Sandra"],
-        "folhetos_liturgicos": ["Maria Inês"],
-        "decoracao": ["Regina", "Cida Bento"]
+        "secretaria_ids": [],
+        "equipes_celebrativas_ids": ["fred", "sandra"],
+        "folhetos_liturgicos_ids": ["maria_ines"],
+        "decoracao_ids": ["regina", "cida_bento"]
       },
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -87,13 +87,13 @@
       "nome": "Catequese",
       "tipo": "pastoral",
       "dimensoes": ["missionaria"],
-      "coordenacao": ["Raquel", "Cida Bento"],
+      "coordenacao_ids": ["raquel", "cida_bento"],
       "funcoes": {
-        "secretaria": ["Carol", "Fernanda", "Marcela", "Amanda"],
-        "tesouraria": ["Fred"],
-        "comunicacao": ["Amanda", "Laura"]
+        "secretaria_ids": ["carol", "fernanda", "marcela", "amanda"],
+        "tesouraria_ids": ["fred"],
+        "comunicacao_ids": ["amanda", "laura"]
       },
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -101,14 +101,14 @@
       "nome": "Dízimo",
       "tipo": "pastoral",
       "dimensoes": ["administrativa"],
-      "coordenacao": ["Selma", "Leninha"],
+      "coordenacao_ids": ["selma", "leninha"],
       "funcoes": {
-        "secretaria": ["Selma", "Zé Maria"],
-        "tesouraria": ["Leninha", "Selma"],
-        "liturgia": ["Badia", "Fátima", "Leninha"],
-        "comunicacao": ["Dona Fátima"]
+        "secretaria_ids": ["selma", "ze_maria"],
+        "tesouraria_ids": ["leninha", "selma"],
+        "liturgia_ids": ["badia", "fatima", "leninha"],
+        "comunicacao_ids": ["dona_fatima"]
       },
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -116,9 +116,9 @@
       "nome": "Equipes Celebrativas",
       "tipo": "pastoral",
       "dimensoes": ["liturgica"],
-      "coordenacao": ["Fred", "Sandra"],
+      "coordenacao_ids": ["fred", "sandra"],
       "funcoes": {},
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -126,13 +126,13 @@
       "nome": "Noivos",
       "tipo": "pastoral",
       "dimensoes": ["missionaria"],
-      "coordenacao": ["Edite", "Orialdo"],
+      "coordenacao_ids": ["edite", "orialdo"],
       "funcoes": {
-        "secretaria": ["Cristian", "Joice"],
-        "tesouraria": [],
-        "comunicacao": ["Eliane"]
+        "secretaria_ids": ["cristian", "joice"],
+        "tesouraria_ids": [],
+        "comunicacao_ids": ["eliane"]
       },
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -140,9 +140,9 @@
       "nome": "Cantos",
       "tipo": "pastoral",
       "dimensoes": ["liturgica"],
-      "coordenacao": ["Cleonice", "Gislaine"],
+      "coordenacao_ids": ["cleonice", "gislaine"],
       "funcoes": {},
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -150,14 +150,14 @@
       "nome": "Comunidade Santos Reis",
       "tipo": "comunidade",
       "dimensoes": ["religioso"],
-      "coordenacao": ["Clara", "Heloísa"],
+      "coordenacao_ids": ["clara", "heloisa"],
       "funcoes": {
-        "secretaria": [],
-        "liturgia": [],
-        "dizimo": [],
-        "tesouraria": ["Rubens", "Clara"]
+        "secretaria_ids": [],
+        "liturgia_ids": [],
+        "dizimo_ids": [],
+        "tesouraria_ids": ["rubens", "clara"]
       },
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -165,12 +165,12 @@
       "nome": "Setores",
       "tipo": "pastoral",
       "dimensoes": ["missionaria"],
-      "coordenacao": ["Fábio", "Gisleine"],
+      "coordenacao_ids": ["fabio", "gisleine"],
       "funcoes": {
-        "animadora_1": ["Leninha"],
-        "animadora_4": ["Abadia"]
+        "animadora_1_ids": ["leninha"],
+        "animadora_4_ids": ["abadia"]
       },
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
@@ -178,378 +178,378 @@
       "nome": "N. S. Carmo",
       "tipo": "pastoral",
       "dimensoes": ["missionaria"],
-      "coordenacao": ["Irmã Valdeci"],
+      "coordenacao_ids": ["irma_valdeci"],
       "funcoes": {},
-      "membros": [],
+      "membros_ids": [],
       "subgrupos": []
     },
     {
-      "id": "pascom",
-      "nome": "PasCom",
-      "tipo": "pastoral",
-      "dimensoes": ["comunicacao"],
-      "coordenacao": ["Priscila"],
-      "funcoes": {
-        "secretaria": [],
-        "murais": []
-      },
-      "membros": [],
-      "subgrupos": []
-    },
+    "id": "pascom",
+  "nome": "PasCom",
+  "tipo": "pastoral",
+  "dimensoes": ["comunicacao"],
+  "coordenacao_ids": ["priscila"],
+  "funcoes": {
+    "secretaria_ids": [],
+    "murais_ids": []
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "cerimoniarios",
+  "nome": "Cerimoniários",
+  "tipo": "pastoral",
+  "dimensoes": ["liturgica"],
+  "coordenacao_ids": ["lucas", "julia", "guilherme", "alana"],
+  "funcoes": {
+    "secretaria_ids": [],
+    "comunicacao_ids": []
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "conselho_administrativo",
+  "nome": "Conselho Administrativo",
+  "tipo": "conselho",
+  "dimensoes": ["administrativa", "promocoes_eventos"],
+  "coordenacao_ids": [],
+  "funcoes": {
+    "secretaria_ids": ["cleonice", "jesus"],
+    "obras_servicos_ids": ["olegario", "janaina"],
+    "dizimo_ids": ["selma"],
+    "tesouraria_ids": ["ze_maria", "amanda"],
+    "patrimonio_ids": [],
+    "contabil_ids": [],
+    "juridico_ids": [],
+    "representantes_cpp_ids": [],
+    "comissao_de_festas_ids": []
+  },
+  "membros_ids": ["monsenhor_valmir","selma", "fernanda", "vinicius","priscila"],
+  "subgrupos": []
+},
+{
+  "id": "acolitos",
+  "nome": "Acólitos",
+  "tipo": "pastoral",
+  "dimensoes": ["liturgica"],
+  "coordenacao_ids": ["paula", "valdete", "leticia"],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "acolhida",
+  "nome": "Acolhida",
+  "tipo": "pastoral",
+  "dimensoes": ["liturgica"],
+  "coordenacao_ids": ["amanda", "carol"],
+  "funcoes": {
+    "secretaria_ids": [],
+    "comunicacao_ids": ["carol"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "comissao_de_festas",
+  "nome": "Comissão de festas",
+  "tipo": "pastoral",
+  "dimensoes": ["promocoes_eventos"],
+  "coordenacao_ids": ["edelcio", "renata", "valmir_jr", "alceu", "leticia", "pedro", "maria_ines"],
+  "funcoes": {
+    "secretaria_ids": ["renata", "amanda"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "pastoral_familiar",
+  "nome": "Pastoral Familiar",
+  "tipo": "pastoral",
+  "dimensoes": ["familia"],
+  "coordenacao_ids": ["renata", "edelcio", "fluvia", "neto"],
+  "funcoes": {
+    "secretaria_ids": ["carolina"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "sao_pedro",
+  "nome": "São Pedro",
+  "tipo": "pastoral",
+  "dimensoes": ["familia"],
+  "coordenacao_ids": ["cristiano", "juliana"],
+  "funcoes": {
+    "secretaria_ids": ["natal", "ana_carolina"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "sao_joao",
+  "nome": "São João",
+  "tipo": "pastoral",
+  "dimensoes": ["familia"],
+  "coordenacao_ids": ["fernando", "viviane"],
+  "funcoes": {
+    "secretaria_ids": ["adelson", "isabel"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "sao_filipe",
+  "nome": "São Filipe",
+  "tipo": "pastoral",
+  "dimensoes": ["familia"],
+  "coordenacao_ids": ["gustavo", "daniela"],
+  "funcoes": {
+    "secretaria_ids": ["vinicio", "patricia"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "santo_andre",
+  "nome": "Santo André",
+  "tipo": "pastoral",
+  "dimensoes": ["familia"],
+  "coordenacao_ids": ["neto", "fluvia"],
+  "funcoes": {
+    "secretaria_ids": ["carlos", "ivanilde"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "sao_tome",
+  "nome": "São Tomé",
+  "tipo": "pastoral",
+  "dimensoes": ["familia"],
+  "coordenacao_ids": ["eleison", "ana_maria"],
+  "funcoes": {
+    "secretaria_ids": ["laura"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "sao_simao",
+  "nome": "São Simão",
+  "tipo": "pastoral",
+  "dimensoes": ["familia"],
+  "coordenacao_ids": ["pedro", "ines"],
+  "funcoes": {
+    "secretaria_ids": ["marcos", "priscila"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "sao_mateus",
+  "nome": "São Mateus",
+  "tipo": "pastoral",
+  "dimensoes": ["familia"],
+  "coordenacao_ids": ["edelcio", "renata"],
+  "funcoes": {
+    "secretaria_ids": ["airton", "marcia"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "sao_tiago",
+  "nome": "São Tiago",
+  "tipo": "pastoral",
+  "dimensoes": ["familia"],
+  "coordenacao_ids": ["fabio", "gislene"],
+  "funcoes": {
+    "secretaria_ids": ["silvio", "quiara"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "sao_judas",
+  "nome": "São Judas",
+  "tipo": "pastoral",
+  "dimensoes": ["familia"],
+  "coordenacao_ids": ["murilo", "daniele"],
+  "funcoes": {
+    "secretaria_ids": ["ricardo", "tamires"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "secretaria_eventos",
+  "nome": "Secretaria de Eventos",
+  "tipo": "pastoral",
+  "dimensoes": ["promocoes_eventos"],
+  "coordenacao_ids": ["murilo", "daniele"],
+  "funcoes": {
+    "secretaria_ids": []
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
     {
-      "id": "cerimoniarios",
-      "nome": "Cerimoniários",
-      "tipo": "pastoral",
-      "dimensoes": ["liturgica"],
-      "coordenacao": ["Lucas", "Júlia", "Guilherme", "Alana"],
-      "funcoes": {
-        "secretaria": [],
-        "comunicacao": []
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "conselho_administrativo",
-      "nome": "Conselho Administrativo",
-      "tipo": "conselho",
-      "dimensoes": ["administrativa", "promocoes_eventos"],
-      "coordenacao": [],
-      "funcoes": {
-        "secretaria": ["Cleonice", "Jésus"],
-        "obras_servicos": ["Olegário", "Janaína"],
-        "dizimo": ["Selma"],
-        "tesouraria": ["Zé Maria", "Amanda"],
-        "patrimonio": [],
-        "contabil": [],
-        "juridico": [],
-        "cpp": [],
-        "comissao_de_festas": []
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "acolitos",
-      "nome": "Acólitos",
-      "tipo": "pastoral",
-      "dimensoes": ["liturgica"],
-      "coordenacao": ["Paula", "Valdete", "Letícia"],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "acolhida",
-      "nome": "Acolhida",
-      "tipo": "pastoral",
-      "dimensoes": ["liturgica"],
-      "coordenacao": ["Amanda", "Carol"],
-      "funcoes": {
-        "secretaria": [],
-        "comunicacao": ["Carol"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "comissao_de_festas",
-      "nome": "Comissão de festas",
-      "tipo": "pastoral",
-      "dimensoes": ["promocoes_eventos"],
-      "coordenacao": ["Edélcio", "Renata", "Valmir Jr.", "Alceu", "Letícia", "Pedro", "Maria Inês"],
-      "funcoes": {
-        "secretaria": ["Renata", "Amanda"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "pastoral_familiar",
-      "nome": "Pastoral Familiar",
-      "tipo": "pastoral",
-      "dimensoes": ["familia"],
-      "coordenacao": ["Renata", "Edélcio", "Flúvia", "Neto"],
-      "funcoes": {
-        "secretaria": ["Carolina"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "sao_pedro",
-      "nome": "São Pedro",
-      "tipo": "pastoral",
-      "dimensoes": ["familia"],
-      "coordenacao": ["Cristiano", "Juliana"],
-      "funcoes": {
-        "secretaria": ["Natal", "Ana Carolina"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "sao_joao",
-      "nome": "São João",
-      "tipo": "pastoral",
-      "dimensoes": ["familia"],
-      "coordenacao": ["Fernando", "Viviane"],
-      "funcoes": {
-        "secretaria": ["Adelson", "Isabel"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "sao_filipe",
-      "nome": "São Filipe",
-      "tipo": "pastoral",
-      "dimensoes": ["familia"],
-      "coordenacao": ["Gustavo", "Daniela"],
-      "funcoes": {
-        "secretaria": ["Vinicio", "Patrícia"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "santo_andre",
-      "nome": "Santo André",
-      "tipo": "pastoral",
-      "dimensoes": ["familia"],
-      "coordenacao": ["Neto", "Flúvia"],
-      "funcoes": {
-        "secretaria": ["Carlos", "Ivanilde"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "sao_tome",
-      "nome": "São Tomé",
-      "tipo": "pastoral",
-      "dimensoes": ["familia"],
-      "coordenacao": ["Eleison", "Ana Maria"],
-      "funcoes": {
-        "secretaria": ["Laura"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "sao_simao",
-      "nome": "São Simão",
-      "tipo": "pastoral",
-      "dimensoes": ["familia"],
-      "coordenacao": ["Pedro", "Inês"],
-      "funcoes": {
-        "secretaria": ["Marcos", "Priscila"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "sao_mateus",
-      "nome": "São Mateus",
-      "tipo": "pastoral",
-      "dimensoes": ["familia"],
-      "coordenacao": ["Edélcio", "Renata"],
-      "funcoes": {
-        "secretaria": ["Airton", "Marcia"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "sao_tiago",
-      "nome": "São Tiago",
-      "tipo": "pastoral",
-      "dimensoes": ["familia"],
-      "coordenacao": ["Fábia", "Gislene"],
-      "funcoes": {
-        "secretaria": ["Silvio", "Quiara"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "sao_judas",
-      "nome": "São Judas",
-      "tipo": "pastoral",
-      "dimensoes": ["familia"],
-      "coordenacao": ["Murilo", "Daniele"],
-      "funcoes": {
-        "secretaria": ["Ricardo", "Tamires"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "secretaria_eventos",
-      "nome": "Secretaria de Eventos",
-      "tipo": "pastoral",
-      "dimensoes": ["promocoes_eventos"],
-      "coordenacao": ["Murilo", "Daniele"],
-      "funcoes": {
-        "secretaria": []
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "juventude",
-      "nome": "Juventude",
-      "tipo": "pastoral",
-      "dimensoes": ["juventude"],
-      "coordenacao": [],
-      "funcoes": {
-        "secretaria": [],
-        "comunicacao": []
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "caminho_novo",
-      "nome": "Caminho Novo",
-      "tipo": "pastoral",
-      "dimensoes": ["juventude"],
-      "coordenacao": [],
-      "funcoes": {
-        "secretaria": [],
-        "comunicacao": []
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "projeto_cesta_basica",
-      "nome": "Projeto Cesta Básica",
-      "tipo": "projeto",
-      "dimensoes": ["social"],
-      "coordenacao": ["Renata", "Edélcio"],
-      "funcoes": {
-        "comunicacao": ["Daniel"],
-        "triagem": ["Pedro"],
-        "captacao": ["Carlos"],
-        "montagem": ["Renata", "Edélcio"],
-        "entrega": ["Flúvia", "Neto"],
-        "dispensario": ["Flúvia", "Neto"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "equipe_sacristia",
-      "nome": "Equipe Sacristia",
-      "tipo": "pastoral",
-      "dimensoes": ["liturgica"],
-      "coordenacao": ["Nádia", "Cida Bento", "Raquel"],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "coleta",
-      "nome": "Coleta",
-      "tipo": "pastoral",
-      "dimensoes": ["administrativa"],
-      "coordenacao": ["Zé Maria", "Fernanda"],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "vicentinos",
-      "nome": "Vicentinos",
-      "tipo": "pastoral",
-      "dimensoes": ["social"],
-      "coordenacao": ["Vanderlei"],
-      "funcoes": {
-        "secretaria": ["Adair", "Gisele"]
-      },
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "saude",
-      "nome": "Saúde",
-      "tipo": "pastoral",
-      "dimensoes": ["social"],
-      "coordenacao": ["Fabiana"],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "decoracao",
-      "nome": "Decoração",
-      "tipo": "pastoral",
-      "dimensoes": ["promocoes_eventos"],
-      "coordenacao": [],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "projeto_sao_francisco_oleo",
-      "nome": "Projeto São Francisco (Óleo)",
-      "tipo": "projeto",
-      "dimensoes": ["social"],
-      "coordenacao": ["Claudinei", "Paulo"],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "projeto_esporte",
-      "nome": "Projeto Esporte",
-      "tipo": "projeto",
-      "dimensoes": ["social"],
-      "coordenacao": ["Amanda"],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "projeto_horta_solidaria",
-      "nome": "Projeto Horta Solidária",
-      "tipo": "projeto",
-      "dimensoes": ["social"],
-      "coordenacao": ["Claudinei"],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "secretaria_paroquial",
-      "nome": "Secretaria Paroquial",
-      "tipo": "paroquial",
-      "dimensoes": ["administrativa", "comunicacao"],
-      "coordenacao": ["Mara"],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "arquivo_paroquial",
-      "nome": "Arquivo Paroquial",
-      "tipo": "paroquial",
-      "dimensoes": ["administrativa"],
-      "coordenacao": ["Janaine"],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    },
-    {
-      "id": "projeto_orquestra_jovem",
-      "nome": "Projeto Orquestra Jovem",
-      "tipo": "projeto",
-      "dimensoes": ["social"],
-      "coordenacao": [],
-      "funcoes": {},
-      "membros": [],
-      "subgrupos": []
-    }
+  "id": "juventude",
+  "nome": "Juventude",
+  "tipo": "pastoral",
+  "dimensoes": ["juventude"],
+  "coordenacao_ids": [],
+  "funcoes": {
+    "secretaria_ids": [],
+    "comunicacao_ids": []
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "caminho_novo",
+  "nome": "Caminho Novo",
+  "tipo": "pastoral",
+  "dimensoes": ["juventude"],
+  "coordenacao_ids": [],
+  "funcoes": {
+    "secretaria_ids": [],
+    "comunicacao_ids": []
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "projeto_cesta_basica",
+  "nome": "Projeto Cesta Básica",
+  "tipo": "projeto",
+  "dimensoes": ["social"],
+  "coordenacao_ids": ["renata", "edelcio"],
+  "funcoes": {
+    "comunicacao_ids": ["daniel"],
+    "triagem_ids": ["pedro"],
+    "captacao_ids": ["carlos"],
+    "montagem_ids": ["renata", "edelcio"],
+    "entrega_ids": ["fluvia", "neto"],
+    "dispensario_ids": ["fluvia", "neto"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "equipe_sacristia",
+  "nome": "Equipe Sacristia",
+  "tipo": "pastoral",
+  "dimensoes": ["liturgica"],
+  "coordenacao_ids": ["nadia", "cida_bento", "raquel"],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "coleta",
+  "nome": "Coleta",
+  "tipo": "pastoral",
+  "dimensoes": ["administrativa"],
+  "coordenacao_ids": ["ze_maria", "fernanda"],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "vicentinos",
+  "nome": "Vicentinos",
+  "tipo": "pastoral",
+  "dimensoes": ["social"],
+  "coordenacao_ids": ["vanderlei"],
+  "funcoes": {
+    "secretaria_ids": ["adair", "gisele"]
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "saude",
+  "nome": "Saúde",
+  "tipo": "pastoral",
+  "dimensoes": ["social"],
+  "coordenacao_ids": ["fabiana"],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "decoracao",
+  "nome": "Decoração",
+  "tipo": "pastoral",
+  "dimensoes": ["promocoes_eventos"],
+  "coordenacao_ids": [],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "projeto_sao_francisco_oleo",
+  "nome": "Projeto São Francisco (Óleo)",
+  "tipo": "projeto",
+  "dimensoes": ["social"],
+  "coordenacao_ids": ["claudinei", "paulo"],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "projeto_esporte",
+  "nome": "Projeto Esporte",
+  "tipo": "projeto",
+  "dimensoes": ["social"],
+  "coordenacao_ids": ["amanda"],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "projeto_horta_solidaria",
+  "nome": "Projeto Horta Solidária",
+  "tipo": "projeto",
+  "dimensoes": ["social"],
+  "coordenacao_ids": ["claudinei"],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "secretaria_paroquial",
+  "nome": "Secretaria Paroquial",
+  "tipo": "paroquial",
+  "dimensoes": ["administrativa", "comunicacao"],
+  "coordenacao_ids": ["mara"],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "arquivo_paroquial",
+  "nome": "Arquivo Paroquial",
+  "tipo": "paroquial",
+  "dimensoes": ["administrativa"],
+  "coordenacao_ids": ["janaine"],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "projeto_orquestra_jovem",
+  "nome": "Projeto Orquestra Jovem",
+  "tipo": "projeto",
+  "dimensoes": ["social"],
+  "coordenacao_ids": [],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+}
   ]
 }
