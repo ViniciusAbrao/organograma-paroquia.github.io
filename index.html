@@ -1110,8 +1110,8 @@
     async function loadData() {
       try {
         const [dadosResponse, pessoasResponse] = await Promise.all([
-          fetch('./dados.json'),
-          fetch('./pessoas.json')
+	  fetch('./dados.json?nocache=' + Date.now()),
+	  fetch('./pessoas.json?nocache=' + Date.now())
         ]);
 
         if (!dadosResponse.ok) throw new Error(`Falha ao carregar dados.json: ${dadosResponse.status}`);
