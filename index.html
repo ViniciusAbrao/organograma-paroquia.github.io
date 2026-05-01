@@ -457,14 +457,9 @@
 
         <div class="control">
           <label for="typeFilter">Filtrar por tipo</label>
-          <select id="typeFilter">
-            <option value="todos">Todos</option>
-            <option value="pastoral">Pastoral</option>
-            <option value="projeto">Projeto</option>
-            <option value="paroquial">Paroquial</option>
-            <option value="conselho">Conselho</option>
-            <option value="comunidade">Comunidade</option>
-          </select>
+	<select id="typeFilter">
+	  <option value="todos">Todos</option>
+	</select>
         </div>
       </div>
     </section>
@@ -894,6 +889,7 @@
       detailsEl.appendChild(card);
 
       addPersonPillList(detailsEl, 'Coordenação da dimensão', dimensao?.coordenacao_ids || []);
+        addPersonPillList(detailsEl, 'Secretaria da dimensão', dimensao?.secretaria_ids || []);
       addPillList(detailsEl, 'Entidades vinculadas', items.map(i => i.nome));
 
       if (state.selectedPersonId) {
@@ -979,7 +975,7 @@
           coord.className = 'pill-list';
 
           (sub.coordenacao_ids || []).forEach(id => {
-            coord.appendChild(createPersonPill(id, 'Coord.: '));
+		coord.appendChild(createPersonPill(id));
           });
 
           block.appendChild(coord);
@@ -1050,6 +1046,21 @@
           dimensionFilterEl.appendChild(opt);
         });
     }
+    
+    function populateTypeFilter() {
+	  const tipos = new Set(
+	    (state.data?.entidades || []).map(e => e.tipo)
+	  );
+
+	  typeFilterEl.innerHTML = '<option value="todos">Todos</option>';
+
+	  tipos.forEach(tipo => {
+	    const opt = document.createElement('option');
+	    opt.value = tipo;
+	    opt.textContent = formatLabel(tipo);
+	    typeFilterEl.appendChild(opt);
+	  });
+	}
 
     function attachEvents() {
       searchInputEl.addEventListener('input', e => {
@@ -1115,6 +1126,7 @@
         );
 
         populateDimensionFilter();
+        populateTypeFilter();
         render();
       } catch (error) {
         organogramaEl.innerHTML = `<div class="loading">Não foi possível carregar os arquivos JSON externos.<br>${error.message}</div>`;
