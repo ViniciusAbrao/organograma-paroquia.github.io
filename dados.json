@@ -328,8 +328,19 @@
   "dimensoes": ["comunicacao"],
   "coordenacao_ids": ["priscila"],
   "funcoes": {
-    "secretaria_ids": [],
-    "murais_ids": []
+    "secretaria_ids": []
+  },
+  "membros_ids": [],
+  "subgrupos": []
+},
+    {
+    "id": "mural",
+  "nome": "Mural",
+  "tipo": "equipes",
+  "dimensoes": ["comunicacao"],
+  "coordenacao_ids": ["amanda"],
+  "funcoes": {
+    "secretaria_ids": []
   },
   "membros_ids": [],
   "subgrupos": []

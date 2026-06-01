@@ -816,9 +816,20 @@
       nome.innerHTML = `<strong>Nome:</strong> ${pessoa.nome}`;
       card.appendChild(nome);
 
-      const telefone = document.createElement('p');
-      telefone.innerHTML = `<strong>Telefone:</strong> ${pessoa.telefone || 'Não informado'}`;
-      card.appendChild(telefone);
+	const camposPessoa = [
+	  ['Nome completo', pessoa.nome_completo],
+	  ['Telefone', pessoa.telefone],
+	  ['E-mail', pessoa.email],
+	  ['Endereço', pessoa.endereco],
+	  ['Data de nascimento', pessoa.data_nascimento],
+	  ['Data de casamento', pessoa.data_casamento]
+	];
+
+	camposPessoa.forEach(([label, valor]) => {
+	  const p = document.createElement('p');
+	  p.innerHTML = `<strong>${label}:</strong> ${valor || 'Não informado'}`;
+	  card.appendChild(p);
+	});
 
       const conjuge = getPessoaById(pessoa.conjuge_id);
       const conjugeLine = document.createElement('p');
