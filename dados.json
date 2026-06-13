@@ -47,8 +47,11 @@
       "nome": "Ministros da Casa de Acolhida",
       "tipo": "pastoral",
       "dimensoes": ["religioso"],
-      "coordenacao_ids": ["nubia", "luiz_fernando"],
-      "funcoes": {},
+      "coordenacao_ids": ["nubia"],
+      "funcoes": {
+      "coordenacao_grupo_a_ids": ["nubia"],
+      "coordenacao_grupo_b_ids": ["luiz_fernando"]
+      },
       "membros_ids": [],
       "subgrupos": []
     },
@@ -57,17 +60,18 @@
 	  "nome": "Pastoral do Batismo",
 	  "tipo": "pastoral",
 	  "dimensoes": ["missionaria"],
-	  "coordenacao_ids": ["gilmar", "leticia"],
+	  "coordenacao_ids": ["gilmar", "leticia_cristina"],
 
 	  "funcoes": {
 	    "secretaria_da_pastoral_ids": ["breno", "kalissa"],
 	    "tesouraria_ids": ["cidinha", "maria_celia"],
-	    "almoxarifado_ids": ["leticia", "maria_celia"],
+	    "almoxarifado_ids": ["leticia_cristina", "maria_celia"],
+	    "liturgia_ids": ["celio_rejane", "rejane"],
 	    "pascom_ids": ["breno", "gilmar"]
 	  },
 
 	  "membros_ids": [
-	    "leticia",
+	    "leticia_cristina",
 	    "gilmar",
 	    "breno",
 	    "kalissa",
@@ -76,7 +80,7 @@
 	    "ana_maria",
 	    "eleicon",
 	    "rejane",
-	    "celio",
+	    "celio_rejane",
 	    "laura",
 	    "cidinha",
 	    "maria_celia"
@@ -88,12 +92,12 @@
 	      "nome": "Funções no Encontro",
 	      "funcoes": {
 		"ambiente_ids": ["maria_celia", "cidinha"],
-		"secretaria_ids": ["leticia"],
+		"secretaria_ids": ["leticia_cristina"],
 		"acolhida_ids": ["breno", "kalissa", "laura"],
-		"liturgia_ids": ["celio", "rejane"],
+		"liturgia_ids": ["celio_rejane", "rejane"],
 		"catequese_ids": ["afonso", "marcia"],
 		"copa_ids": ["cidinha", "maria_celia", "ana_maria", "eleicon"],
-		"palestrantes_ids": ["celio", "rejane", "marcia", "afonso", "leticia", "gilmar", "laura"]
+		"palestrantes_ids": ["celio_rejane", "rejane", "marcia", "afonso", "leticia_cristina", "gilmar", "laura"]
 	      }
 	    },
 	    {
@@ -102,11 +106,11 @@
 	      "funcoes": {
 		"ambiente_ids": ["maria_celia", "cidinha"],
 		"acolhida_ids": ["breno", "kalissa", "laura"],
-		"material_liturgico_ids": ["leticia", "maria_celia"],
-		"celebracao_ids": ["celio", "rejane", "ana_maria", "eleicon"],
+		"material_liturgico_ids": ["leticia_cristina", "maria_celia"],
+		"celebracao_ids": ["celio_rejane", "rejane", "ana_maria", "eleicon"],
 		"toalhas_e_alfaias_ids": ["laura", "ana_maria"],
-		"cerimoniarios_nave_ids": ["celio", "kalissa"],
-		"cerimoniarios_presbiterio_ids": ["leticia", "ana_maria"],
+		"cerimoniarios_nave_ids": ["celio_rejane", "kalissa"],
+		"cerimoniarios_presbiterio_ids": ["leticia_cristina", "ana_maria"],
 		"equipe_canto_ids": ["valmir_jr", "julia_canto"]
 	      }
 	    }
@@ -122,6 +126,7 @@
         "secretaria_ids": [],
         "equipes_celebrativas_ids": ["fred", "sandra"],
         "folhetos_liturgicos_ids": ["maria_ines"],
+        "folhetos_cantos_ids": ["cleonice"],
         "decoracao_ids": ["regina", "cida_bento"]
       },
       "membros_ids": [],
@@ -196,7 +201,7 @@
     {
       "id": "catequese",
       "nome": "Catequese",
-      "coordenacao_ids": ["raquel", "celio"],
+      "coordenacao_ids": ["raquel"],
       "funcoes": {},
       "membros_ids": []
     },
@@ -278,8 +283,11 @@
       "nome": "Equipes de Cantos",
       "tipo": "equipes",
       "dimensoes": ["liturgica"],
-      "coordenacao_ids": ["cleonice", "gislene"],
-      "funcoes": {},
+      "coordenacao_ids": ["cleonice"],
+      "funcoes": {
+      "secretaria_ids": ["cleonice"],
+      "comunicacao_ids": ["gislene"]
+      },
       "membros_ids": [],
       "subgrupos": []
     },
@@ -303,7 +311,7 @@
       "nome": "Setores",
       "tipo": "pastoral",
       "dimensoes": ["missionaria"],
-      "coordenacao_ids": ["fabio", "gisleine"],
+      "coordenacao_ids": ["fabio", "gislene"],
       "funcoes": {
         "animadora_1_ids": ["leninha"],
         "animadora_4_ids": ["abadia"]
@@ -350,10 +358,11 @@
   "nome": "Cerimoniários",
   "tipo": "pastoral",
   "dimensoes": ["liturgica"],
-  "coordenacao_ids": ["lucas", "julia", "guilherme", "alana"],
+  "coordenacao_ids": ["lucas", "julia", "guilherme", "allana"],
   "funcoes": {
-    "secretaria_ids": [],
-    "comunicacao_ids": []
+    "secretaria_ids": ["julia","allana"],
+    "coordenacao_adulto_ids": ["joyce"],
+    "comunicacao_ids": ["lucas"]
   },
   "membros_ids": [],
   "subgrupos": []
@@ -691,7 +700,7 @@
     "carol_giovanne",
     "otacilio",
     "ozana",
-    "celio",
+    "celio_cintia",
     "cintia",
     "joao_rosa",
     "elizena",
@@ -1004,6 +1013,16 @@
   "tipo": "projeto",
   "dimensoes": ["social"],
   "coordenacao_ids": ["claudinei"],
+  "funcoes": {},
+  "membros_ids": [],
+  "subgrupos": []
+},
+{
+  "id": "assessoria_juridica",
+  "nome": "Núcleo de Assessoria Jurídica Solidária",
+  "tipo": "projeto",
+  "dimensoes": ["social"],
+  "coordenacao_ids": [],
   "funcoes": {},
   "membros_ids": [],
   "subgrupos": []
