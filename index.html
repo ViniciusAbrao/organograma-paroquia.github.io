@@ -826,31 +826,33 @@
 	];
 
 	camposPessoa.forEach(([label, valor]) => {
+	  if (!valor) return;
+
 	  const p = document.createElement('p');
-	  p.innerHTML = `<strong>${label}:</strong> ${valor || 'Não informado'}`;
+	  p.innerHTML = `<strong>${label}:</strong> ${valor}`;
 	  card.appendChild(p);
 	});
 
-      const conjuge = getPessoaById(pessoa.conjuge_id);
-      const conjugeLine = document.createElement('p');
+	const conjuge = getPessoaById(pessoa.conjuge_id);
 
-      if (conjuge) {
-        conjugeLine.innerHTML = '<strong>Cônjuge:</strong> ';
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'pill';
-        btn.style.cursor = 'pointer';
-        btn.textContent = conjuge.nome;
-        btn.onclick = () => {
-          state.selectedPersonId = conjuge.id;
-          renderDetails();
-        };
-        conjugeLine.appendChild(btn);
-      } else {
-        conjugeLine.innerHTML = '<strong>Cônjuge:</strong> Não informado';
-      }
+	if (conjuge) {
+	  const conjugeLine = document.createElement('p');
+	  conjugeLine.innerHTML = '<strong>Cônjuge:</strong> ';
 
-      card.appendChild(conjugeLine);
+	  const btn = document.createElement('button');
+	  btn.type = 'button';
+	  btn.className = 'pill';
+	  btn.style.cursor = 'pointer';
+	  btn.textContent = conjuge.nome;
+
+	  btn.onclick = () => {
+	    state.selectedPersonId = conjuge.id;
+	    renderDetails();
+	  };
+
+	  conjugeLine.appendChild(btn);
+	  card.appendChild(conjugeLine);
+	}
       detailsEl.appendChild(card);
     }
 
@@ -882,6 +884,7 @@
       addPersonPillList(detailsEl, 'Coordenação', state.data.cpp.coordenacao_ids || []);
       addPersonPillList(detailsEl, 'Secretaria', state.data.cpp.funcoes?.secretaria_ids || []);
       addPersonPillList(detailsEl, 'Comunicação', state.data.cpp.funcoes?.comunicacao_ids || []);
+      addPersonPillList(detailsEl, 'Membros cadastrados', state.data.cpp.membros_ids || []);
 
       if (state.selectedPersonId) {
         renderPersonDetails(state.selectedPersonId);

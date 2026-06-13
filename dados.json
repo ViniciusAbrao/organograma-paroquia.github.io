@@ -12,9 +12,10 @@
     "nome": "CPP",
     "coordenacao_ids": ["selma", "fernanda", "vinicius_abrao"],
     "funcoes": {
-      "secretaria_ids": ["priscila"],
+      "secretaria_ids": [],
       "comunicacao_ids": ["priscila"]
-    }
+    },
+    "membros_ids": ["selma", "fernanda", "vinicius_abrao", "priscila", "iara","cleiton"]
   },
   "dimensoes": [
     { "id": "familia", "ordem": 1, "nome": "Família", "coordenacao_ids": [],  "secretaria_ids": []},
@@ -55,7 +56,7 @@
       "membros_ids": [],
       "subgrupos": []
     },
-	{
+    {
 	  "id": "batismo",
 	  "nome": "Pastoral do Batismo",
 	  "tipo": "pastoral",
@@ -81,7 +82,7 @@
 	    "eleicon",
 	    "rejane",
 	    "celio_rejane",
-	    "laura",
+	    "laura_anderson",
 	    "cidinha",
 	    "maria_celia"
 	  ],
@@ -93,11 +94,11 @@
 	      "funcoes": {
 		"ambiente_ids": ["maria_celia", "cidinha"],
 		"secretaria_ids": ["leticia_cristina"],
-		"acolhida_ids": ["breno", "kalissa", "laura"],
+		"acolhida_ids": ["breno", "kalissa", "laura_anderson"],
 		"liturgia_ids": ["celio_rejane", "rejane"],
 		"catequese_ids": ["afonso", "marcia"],
 		"copa_ids": ["cidinha", "maria_celia", "ana_maria", "eleicon"],
-		"palestrantes_ids": ["celio_rejane", "rejane", "marcia", "afonso", "leticia_cristina", "gilmar", "laura"]
+		"palestrantes_ids": ["celio_rejane", "rejane", "marcia", "afonso", "leticia_cristina", "gilmar", "laura_anderson"]
 	      }
 	    },
 	    {
@@ -105,10 +106,10 @@
 	      "nome": "Funções na Celebração",
 	      "funcoes": {
 		"ambiente_ids": ["maria_celia", "cidinha"],
-		"acolhida_ids": ["breno", "kalissa", "laura"],
+		"acolhida_ids": ["breno", "kalissa", "laura_anderson"],
 		"material_liturgico_ids": ["leticia_cristina", "maria_celia"],
 		"celebracao_ids": ["celio_rejane", "rejane", "ana_maria", "eleicon"],
-		"toalhas_e_alfaias_ids": ["laura", "ana_maria"],
+		"toalhas_e_alfaias_ids": ["laura_anderson", "ana_maria"],
 		"cerimoniarios_nave_ids": ["celio_rejane", "kalissa"],
 		"cerimoniarios_presbiterio_ids": ["leticia_cristina", "ana_maria"],
 		"equipe_canto_ids": ["valmir_jr", "julia_canto"]
@@ -121,7 +122,7 @@
       "nome": "Pastoral da Liturgia",
       "tipo": "pastoral",
       "dimensoes": ["liturgica"],
-      "coordenacao_ids": ["raquel"],
+      "coordenacao_ids": ["raquel", "cida_bento", "maria_ines", "nadia"],
       "funcoes": {
         "secretaria_ids": [],
         "equipes_celebrativas_ids": ["fred", "sandra"],
@@ -139,9 +140,9 @@
       "dimensoes": ["missionaria"],
       "coordenacao_ids": ["raquel", "cida_bento"],
       "funcoes": {
-        "secretaria_ids": ["carol", "fernanda", "marcela", "amanda"],
-        "tesouraria_ids": ["fred"],
-        "comunicacao_ids": ["amanda", "laura"]
+        "secretaria_ids": ["marcela", "amanda"],
+        "tesouraria_ids": ["marcela"],
+        "comunicacao_ids": ["laura"]
       },
       "membros_ids": [],
       "subgrupos": []
@@ -346,7 +347,7 @@
   "nome": "Mural",
   "tipo": "equipes",
   "dimensoes": ["comunicacao"],
-  "coordenacao_ids": ["amanda"],
+  "coordenacao_ids": ["amanda","vinicius_amanda"],
   "funcoes": {
     "secretaria_ids": []
   },
@@ -408,7 +409,7 @@
   "nome": "Acólitos",
   "tipo": "pastoral",
   "dimensoes": ["liturgica"],
-  "coordenacao_ids": ["paula", "valdete", "leticia"],
+  "coordenacao_ids": ["paula", "waldethe", "leticia"],
   "funcoes": {},
   "membros_ids": [],
   "subgrupos": []
@@ -418,10 +419,10 @@
   "nome": "Pastoral da Acolhida",
   "tipo": "pastoral",
   "dimensoes": ["liturgica"],
-  "coordenacao_ids": ["amanda", "carol"],
+  "coordenacao_ids": ["amanda", "ana_carolina"],
   "funcoes": {
-    "secretaria_ids": [],
-    "comunicacao_ids": ["carol"]
+    "secretaria_ids": ["daniele","murilo"],
+    "comunicacao_ids": ["ana_carolina"]
   },
   "membros_ids": [],
   "subgrupos": []
@@ -431,9 +432,11 @@
   "nome": "Comissão de festas",
   "tipo": "pastoral",
   "dimensoes": ["administrativa", "promocoes_eventos"],
-  "coordenacao_ids": ["edelcio", "renata", "valmir_jr", "alceu", "leticia", "pedro", "maria_ines"],
+  "coordenacao_ids": ["edelcio", "renata", "valmir_jr", "luziana", "alceu", "leticia", "pedro", "maria_ines"],
   "funcoes": {
-    "secretaria_ids": ["renata", "amanda"]
+    "secretaria_ids": ["raquel", "amanda_aparecida"],
+    "tesouraria_ids": ["edelcio", "renata"],
+    "comunicacao_ids": ["priscila"]
   },
   "membros_ids": [],
   "subgrupos": []
@@ -561,8 +564,8 @@
     ],
 
     "liturgia_ids": [
-      "jose_maria",
-      "leninha"
+      "helton",
+      "soninha"
     ],
 
     "pascom_ids": [
@@ -776,7 +779,7 @@
   "funcoes": {
     "secretaria_ids": ["ricardo", "tamires"],
     "liturgia_ids": ["vinicius", "roberta"],
-    "pascom_ids": ["fred", "sandra"]
+    "pascom_ids": ["julio_cesar", "marcela"]
   },
   "membros_ids": [
     "murilo",
@@ -794,7 +797,9 @@
     "alan",
     "keli",
     "luiz",
-    "renata_luiz"
+    "renata_luiz",
+    "julio_cesar",
+    "marcela"
   ],
   "subgrupos": []
 },
